@@ -1,4 +1,4 @@
-<input> 0 1 2 -3 4 5 21312
+<input> 1 1 2 -3
 ; r[1] - число элементов
 ; r[2] - счетчик i
 ; r[3] - счетчик k
@@ -12,17 +12,33 @@ load 1 	;
 jz end	; пусто, выходим
 
 ; read elements
-loop_read:
-  add =4
-  read *0
-  sub =5
-  jgtz loop_read
 
+; считывает за меньше число операций но в обратном порядке
+;loop_read:
+;  add =4
+;  read *0
+;  sub =5
+;  jgtz loop_read
+
+add =5	; r2 = count + 5
+store 2   ;
+
+load =5   ; счетчик, стартуем с 5 позиции
+store 4   ; сохраняем в буффер r4
+loop_read:
+  read *4
+  load 4  ; обновляем счетчик r4 = r4 + 1
+  add =1
+  store 4
+  load 2  ; смотрим сколько осталось (r2 - r4)
+  sub 4
+  jgtz loop_read
+  
 ; sort
 
-load 1
+load 1		; загружаем число элементов
 add =4		; r0 = count + 4
-store 2		; i = count + 4
+store 2		; i = r0
 
 loop_i:
   load 2  		; k = i
@@ -48,7 +64,7 @@ jmp write
 end:
 halt
 
-swap: ; swap( r[r[2]], r[r[3]] )
+swap: ; swap( r[r[2]], r[r[3]] ) с использованием буффера r4
   load *2 ; r[4] = r[r[2]]
   store 4
   load *3 ; r[r[2]] = r[r[3]]

@@ -1,0 +1,76 @@
+<input> 0 1 2 -3 4 5 21312
+; r[1] - число элементов
+; r[2] - счетчик i
+; r[3] - счетчик k
+; r[4] - buffer for swap
+; r[5] - r[4+count] - элементы
+
+; read size
+read 1 	; r[count+1]
+load 1 	; 
+
+jz end	; пусто, выходим
+
+; read elements
+loop_read:
+  add =4
+  read *0
+  sub =5
+  jgtz loop_read
+
+; sort
+
+load 1
+add =4		; r0 = count + 4
+store 2		; i = count + 4
+
+loop_i:
+  load 2  		; k = i
+  store 3		; 
+loop_k:
+    load 3		; k = k - 1
+    sub =1  	;
+    store 3	;
+    load *3 	; v[k] - v[i] > 0
+    sub *2        	; 
+    jgtz swap	;
+return_swap:
+    load 3		; k > 0
+    sub =5
+    jgtz loop_k
+  load 2		; i > 0
+  sub =1		;
+  store 2		;
+  sub =5		;
+  jgtz loop_i  
+
+jmp write
+end:
+halt
+
+swap: ; swap( r[r[2]], r[r[3]] )
+  load *2 ; r[4] = r[r[2]]
+  store 4
+  load *3 ; r[r[2]] = r[r[3]]
+  store *2
+  load 4   ; r[r[3] = r[4]
+  store *3
+jmp return_swap
+
+write:
+  load =5	 ; r4 = 5 
+  store 4  ; 
+  load 1   ; r2 = r1 + 3
+  add =5	;
+  store 2
+loop_write:
+  write *4  ; write(r[r4])
+  load 4	  ; r4 = r4 + 1
+  add =1    ;
+  store 4   ;
+  load 2
+  sub 4
+  jgtz loop_write
+jmp end
+
+

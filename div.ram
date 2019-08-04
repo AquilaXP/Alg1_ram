@@ -1,0 +1,39 @@
+<input> 10 10
+; r1 = num
+; r2 = den
+; r3 - quot
+; r4 - rem
+read 1 	; r1 = num
+read 2	; r2 = den
+
+load =0	; r3 = 0
+store 3
+load =0	; r4 = 0
+store 4
+
+load 1
+loop:
+
+  sub 2	 ; num -= den
+  store 1
+
+  load 3  ; qout += 1
+  add =1	; 
+  store 3
+
+  load 1 ; while( num > 0 )
+  jgtz loop
+
+jz end
+add 2	; remaind = num + den
+store 4
+
+load 3 	; qout -=1
+sub =1
+store 3
+
+end:
+write 3
+write 4
+halt
+ 

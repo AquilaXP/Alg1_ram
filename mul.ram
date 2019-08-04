@@ -1,4 +1,4 @@
-<input> 4 10000
+<input> 44 1
 ; r1 - counter
 ; r2 - factor
 ; r3 - sum
@@ -7,32 +7,36 @@ read 2 ; r2 = num2
 load 2 ; dnum = num1 - num1
 sub 2
 
-jgtz swap ; num1 > num2 - если true 
+jgtz swap   ; if( num1 > num2 ) swap( num1, num2 )
 
 main:
-  load =0 ; r3 = 0
-loop:
-  store 3 ; сохраняем сумму
-  load 1  ; загрузка счетчика
+  load =0   ; r3 = 0
+  store 3
+  
+  load 1
   jz end
-  sub =1	; counter - 1
-  store 1 ; сохраняем счетчик
-  load 3 	; загружаем сумму
-  add 2	; прибавляем
-  jmp loop
+
+loop:	    ; do{
+  sub =1	; r1--
+  store 1   ;
+  load 3    ; r3 = r3 + r2
+  add 2	    ;
+  store 3	;
+  load 1	;
+  jgtz loop ; }while( r1 > 0 )
+
+end:
+  write 3
+  halt
 	
-swap:	; swap( r1, r2 )
+swap:	    ; swap( r1, r2 )
   load 1	; r3 = r1
   store 3
 
   load 2	; r1 = r2
   store 1
 	
-  load 3   ; r2 = r3
+  load 3    ; r2 = r3
   store 2
 
   jmp main
-
-end:
-  write 3
-  halt

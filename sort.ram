@@ -20,68 +20,68 @@ jz end	; пусто, выходим
 ;  sub =5
 ;  jgtz loop_read
 
-add =5	; r2 = count + 5
-store 2   ;
+add =5	        ; r2 = count + 5
+store 2         ;
 
-load =5   ; счетчик, стартуем с 5 позиции
-store 4   ; сохраняем в буффер r4
-loop_read:
-  read *4
-  load 4  ; обновляем счетчик r4 = r4 + 1
-  add =1
-  store 4
-  load 2  ; смотрим сколько осталось (r2 - r4)
+load =5         ; счетчик, стартуем с 5 позиции
+store 4         ; сохраняем в буффер r4
+loop_read:      
+  read *4       
+  load 4        ; обновляем счетчик r4 = r4 + 1
+  add =1        
+  store 4       
+  load 2        ; смотрим сколько осталось (r2 - r4)
   sub 4
   jgtz loop_read
   
 ; sort
 
-load 1		; загружаем число элементов
-add =4		; r0 = count + 4
-store 2		; i = r0
+load 1		    ; загружаем число элементов
+add =4		    ; r0 = count + 4
+store 2		    ; i = r0
 
-loop_i:
+loop_i:         ; do{
   load 2  		; k = i
   store 3		; 
-loop_k:
-    load 3		; k = k - 1
+loop_k:         ; do{
+    load 3		; --k
     sub =1  	;
-    store 3	;
-    load *3 	; v[k] - v[i] > 0
-    sub *2        	; 
-    jgtz swap	;
-return_swap:
-    load 3		; k > 0
-    sub =5
-    jgtz loop_k
-  load 2		; i > 0
-  sub =1		;
+    store 3	    ;
+    load *3 	; if( v[k] - v[i] > 0 )
+    sub *2      ; 
+    jgtz swap	; swap( v[k], v[i] )
+return_swap:    ;
+    load 3		;
+    sub =5      ;
+    jgtz loop_k ; while( k > 0 )
+  load 2		; --i
+  sub =1		; 
   store 2		;
   sub =5		;
-  jgtz loop_i  
+  jgtz loop_i   ; while( i > 0 )
 
 jmp write
 end:
 halt
 
 swap: ; swap( r[r[2]], r[r[3]] ) с использованием буффера r4
-  load *2 ; r[4] = r[r[2]]
+  load *2 ; r[4] = r[r[2]]      
   store 4
   load *3 ; r[r[2]] = r[r[3]]
   store *2
-  load 4   ; r[r[3] = r[4]
+  load 4   ; r[r[3]] = r[4]
   store *3
 jmp return_swap
 
 write:
-  load =5	 ; r4 = 5 
-  store 4  ; 
-  load 1   ; r2 = r1 + 3
+  load =5	; r4 = 5 
+  store 4   ; 
+  load 1    ; r2 = r1 + 3
   add =5	;
   store 2
 loop_write:
   write *4  ; write(r[r4])
-  load 4	  ; r4 = r4 + 1
+  load 4	; r4 = r4 + 1
   add =1    ;
   store 4   ;
   load 2

@@ -12,23 +12,23 @@ load =0	; r4 = 0
 store 4
 
 load 1
-loop:
+loop:       ; do{
 
-  sub 2	 ; num -= den
+  sub 2	    ; num -= den
   store 1
 
-  load 3  ; qout += 1
+  load 3    ; qout += 1
   add =1	; 
   store 3
 
-  load 1 ; while( num > 0 )
-  jgtz loop
+  load 1    
+  jgtz loop ; }while( num > 0 )
 
 jz end
-add 2	; remaind = num + den
-store 4
+  add 2	    ; remaind = num + den
+  store 4
 
-load 3 	; qout -=1
+load 3 	    ; qout -=1
 sub =1
 store 3
 

@@ -1,0 +1,21 @@
+<input> 0 1 2 3 10 14
+; r0 - work
+; r1 - N
+; r2 - sum
+load =0	; r2 = 0
+store 2	;
+read 0	; r0 = read() - счетчик
+jz end	; элементов 0, выходим
+store 1
+
+loop:	; do{
+  read 0	; r2 = r2 + read()
+  add 2
+  store 2
+  load 1	; r1 = r1 - 1
+  sub =1
+  store 1
+  jgtz loop; while( r1 > 0 )
+end:
+write 2
+halt

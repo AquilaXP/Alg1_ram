@@ -1,0 +1,46 @@
+<input> 24 10000
+; r1 - counter
+; r2 - factor
+; r3 = num1
+; r4 = num2
+; r5 - sum
+read 3 ; r3 = num1
+read 4 ; r4 = num2
+load 3 ; dnum = num1 - num1
+sub 4
+
+jgtz first ; num1 > num2
+jmp second ; num1 <= num2
+
+main:
+  load =0 ; r5 = 0
+  store 5
+  load 1  ; загрузка счетчика
+loop:
+  jz end
+  sub =1	; counter - 1
+  store 1 ; сохраняем счетчик
+  load 5 	; загружаем сумму
+  add 2	; прибавляем
+  store 5	; сохраняем сумму
+  load 1 	; загружаем
+  jmp loop
+
+
+end:
+  write 5
+  halt
+	
+first:	; num1 > num2
+  load 4	; r1 = num2
+  store 1
+  load 3 	; r2 = num1
+  store 2
+  jmp main
+
+second:	; num1 < num2
+  load 3	; r1 = num1
+  store 1
+  load 4	; r2 = num1
+  store 2
+  jmp main

@@ -1,46 +1,38 @@
-<input> 24 10000
+<input> 4 10000
 ; r1 - counter
 ; r2 - factor
-; r3 = num1
-; r4 = num2
-; r5 - sum
-read 3 ; r3 = num1
-read 4 ; r4 = num2
-load 3 ; dnum = num1 - num1
-sub 4
+; r3 - sum
+read 1 ; r1 = num1
+read 2 ; r2 = num2
+load 2 ; dnum = num1 - num1
+sub 2
 
-jgtz first ; num1 > num2
-jmp second ; num1 <= num2
+jgtz swap ; num1 > num2 - если true 
 
 main:
-  load =0 ; r5 = 0
-  store 5
-  load 1  ; загрузка счетчика
+  load =0 ; r3 = 0
 loop:
+  store 3 ; сохраняем сумму
+  load 1  ; загрузка счетчика
   jz end
   sub =1	; counter - 1
   store 1 ; сохраняем счетчик
-  load 5 	; загружаем сумму
+  load 3 	; загружаем сумму
   add 2	; прибавляем
-  store 5	; сохраняем сумму
-  load 1 	; загружаем
   jmp loop
+	
+swap:	; swap( r1, r2 )
+  load 1	; r3 = r1
+  store 3
 
+  load 2	; r1 = r2
+  store 1
+	
+  load 3   ; r2 = r3
+  store 2
+
+  jmp main
 
 end:
-  write 5
+  write 3
   halt
-	
-first:	; num1 > num2
-  load 4	; r1 = num2
-  store 1
-  load 3 	; r2 = num1
-  store 2
-  jmp main
-
-second:	; num1 < num2
-  load 3	; r1 = num1
-  store 1
-  load 4	; r2 = num1
-  store 2
-  jmp main

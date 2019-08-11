@@ -2,17 +2,17 @@
 ; r0 - work
 ; r1 - N
 ; r2 - sum
-load =0	; r2 = 0
-store 2	;
-read 0	; r0 = read() - ñ÷åò÷èê
-jz end	; ýëåìåíòîâ 0, âûõîäèì
+load =0 ; r2 = 0
+store 2 ;
+read 0  ; r0 = read() - ÑÑ‡ÐµÑ‚Ñ‡Ð¸Ðº
+jz end  ; ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² 0, Ð²Ñ‹Ñ…Ð¾Ð´Ð¸Ð¼
 store 1
 
-loop:	; do{
-  read 0	; r2 = r2 + read()
+loop:       ; do{
+  read 0    ; r2 = r2 + read()
   add 2
   store 2
-  load 1	; r1 = r1 - 1
+  load 1    ; r1 = r1 - 1
   sub =1
   store 1
   jgtz loop; while( r1 > 0 )

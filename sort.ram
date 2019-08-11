@@ -6,10 +6,9 @@
 ; r[5] - r[4+count] - элементы
 
 ; read size
-read 1 	; r[count+1]
-load 1 	; 
-
+read 0 	; 
 jz end	; пусто, выходим
+store 1 	; r[count+1]
 
 ; read elements
 
